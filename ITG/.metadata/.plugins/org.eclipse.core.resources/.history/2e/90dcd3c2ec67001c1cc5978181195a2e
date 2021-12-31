@@ -1,0 +1,9 @@
+package com.itg.csv;
+
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServlet;
+
+@MultipartConfig
+public class CSVFile extends HttpServlet {
+
+}

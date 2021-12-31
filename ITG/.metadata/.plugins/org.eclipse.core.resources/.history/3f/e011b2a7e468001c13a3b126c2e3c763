@@ -1,0 +1,126 @@
+package com.itg.searchmethods;
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
+import com.itg.graph.Edge;
+import com.itg.graph.Graph;
+import com.itg.graph.Node;
+
+
+public class UCS {
+	public static ArrayList<ArrayList> ways = new ArrayList<>();
+	public static Integer minCost;
+	public static LinkedHashSet<Integer> visited = new LinkedHashSet<Integer>();
+
+		public static HashMap<String, Object> UCSearch(Graph graph, int start , int goal) {
+			ArrayList<Integer> thisWay = new ArrayList<>();
+			ArrayList<ArrayList> queue = new ArrayList<>();
+			
+			findShortPath(graph , start , goal , thisWay);
+			
+//			System.out.println(findBestWay(graph) +" " +  minCost);
+//			System.out.println(visited);
+//			System.out.println(ways);
+			
+			HashMap<String, Object> UCSdata = new HashMap<>();
+			UCSdata.put("bestWay", findBestWay(graph));
+			UCSdata.put("minCost", minCost);
+			UCSdata.put("visited", visited);
+			return UCSdata;
+			
+			
+		}
+		
+		private static ArrayList<Integer> findShortPath(Graph graph, int start , int goal , ArrayList<Integer> thisWay){
+//			System.out.println(visited);
+			visited.add(start);
+			if (thisWay.contains(start)) {
+				return thisWay;
+			}
+			
+			if(start == goal) {
+				thisWay.add(goal);
+				return thisWay;
+			}
+			
+			thisWay.add(start);
+			
+			ArrayList<ArrayList> queue = new ArrayList<>();
+			
+			queue.add(sorting(graph.getNodes(start)));
+//			System.out.println(queue);
+			ArrayList<Edge> path=queue.get(0);
+			
+			for (Edge edge : path) {
+				ArrayList<Integer>x=findShortPath(graph,edge.getValue()  ,goal ,thisWay);
+				if(x.size()>0&&thisWay.contains(goal) ) {
+					ArrayList<Integer>newV=new ArrayList<>(thisWay);
+					ways.add(newV);
+//					System.out.println(ways);
+					break;
+				}
+				
+			}			
+			while(true) {
+				if(thisWay.remove(thisWay.size()-1) == start) {
+					break;
+				}
+			}
+//			System.out.println(ways);
+			return thisWay;
+		}
+		
+
+		public static ArrayList<Node> sorting(ArrayList<Edge> q) {
+//			Sorting ArrayList depends on lower cost node.
+			
+			ArrayList<Node> sortedArray = new ArrayList<>();
+			
+//			System.out.println(q);
+			while(q.size() != 0) {
+				int index = 0;
+				Edge min = q.get(0);
+				int minIndex = 0;
+				for (Edge e : q) {
+					
+					if(e.getCost()<min.getCost()) {
+						min=e;
+						minIndex = index;
+						
+					}
+					index++;	
+				}
+				sortedArray.add(min);
+				q.remove(minIndex);
+
+				}
+			return sortedArray;
+		}
+		
+		public static ArrayList<Integer> findBestWay(Graph graph){
+			ArrayList<Integer> shortWay = null;
+			minCost = null;
+			for (ArrayList arrayList : ways) {
+				Integer cost = 0;
+				for(int i = 0 ; i <arrayList.size()-1;i++) {
+					cost+= graph.findCost( (Integer) arrayList.get(i),(Integer) arrayList.get(i+1));
+				}
+				if(minCost==null) {
+					minCost= cost;
+				}
+				else if(minCost > cost) {
+					minCost = cost;
+					shortWay=new ArrayList<>(arrayList);
+				}
+			}
+			return shortWay;
+			
+		}
+
+}

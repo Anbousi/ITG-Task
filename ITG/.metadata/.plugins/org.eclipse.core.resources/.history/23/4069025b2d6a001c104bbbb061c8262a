@@ -1,0 +1,33 @@
+.main{
+	width: 80%;
+	margin: 0 auto;
+}
+
+
+.input-data td{
+	    vertical-align: top;
+}
+
+.push-btn{
+	width:100%;
+}
+
+.contain-data , .result-data{
+	width:80%;
+}
+
+.input-data{
+	width:100%;
+}
+
+td , th{
+	text-align: left;
+}
+
+th{
+    background: linear-gradient(360deg, #706d6d87, transparent);
+    border: 1px solid black;
+}
+
+.result-data{
+	border: 1px solid black;

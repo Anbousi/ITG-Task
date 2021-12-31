@@ -1,0 +1,77 @@
+package com.itg.searchmethods;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import com.itg.graph.Edge;
+import com.itg.graph.Graph;
+import com.itg.graph.Node;
+
+
+
+public class UCS {
+
+		public static void UCSearch(Graph graph, int start , int goal) {
+			LinkedHashSet<Integer> visited = new LinkedHashSet<>();
+			ArrayList<ArrayList> queue = new ArrayList<>();
+			
+			findShortPath(graph , start , goal , visited);
+			queue.add(sorting(graph.getNodes(start)));
+			ArrayList<Edge> path=queue.remove(0);			
+			System.out.println(path);
+		}
+		
+		private static LinkedHashSet<Integer> findShortPath(Graph graph, int start , int goal , LinkedHashSet<Integer> visited){
+			System.out.println(visited);
+			if (visited.contains(start)) {
+				return visited;
+			}
+			
+			else if(start == goal) {
+				visited.add(goal);
+				return visited;
+			}
+			
+			visited.add(start);
+			
+			ArrayList<ArrayList> queue = new ArrayList<>();
+			queue.add(sorting(graph.getNodes(start)));
+			System.out.println(queue);
+			ArrayList<Edge> path=queue.remove(0);
+			
+			for (Edge edge : path) {
+				findShortPath(graph,edge.getValue()  ,goal ,visited);
+			}
+			
+
+			
+			return visited;
+		}
+		
+
+		public static ArrayList<Node> sorting(ArrayList<Edge> q) {
+//			Sorting ArrayList depends on lower cost node.
+			
+			ArrayList<Node> sortedArray = new ArrayList<>();
+			
+//			System.out.println(q);
+			while(q.size() != 0) {
+				int index = 0;
+				Edge min = q.get(0);
+				int minIndex = 0;
+				for (Edge e : q) {
+					
+					if(e.getCost()<min.getCost()) {
+						min=e;
+						minIndex = index;
+						
+					}
+					index++;	
+				}
+				sortedArray.add(min);
+				q.remove(minIndex);
+
+				}
+			return sortedArray;
+		}
+
+}

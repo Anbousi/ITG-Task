@@ -1,0 +1,26 @@
+package com.itg.graph;
+
+public class Edge extends Node{
+	private int cost;
+	public Edge(int value, int cost) {
+		super(value);
+		this.setCost(cost);
+	}
+	public int getCost() {
+		return cost;
+	}
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+	
+	public int getWeight() {
+		System.out.println("Not allowed");
+		return 0;
+	}
+	
+	@Override
+	public String toString() { 
+	    return "(" + this.getValue() + "," + this.cost + ")" ;
+	} 
+	
+}

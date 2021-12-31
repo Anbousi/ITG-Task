@@ -1,0 +1,52 @@
+div{
+	margin:10px 50px;
+	padding:0 ;
+}
+
+table{
+	border:1px solid black;
+	margin:10px 50px;
+	width: 47%;
+}
+
+.upload > input{
+	margin: 10px 0;
+	display:block;
+	 width: 100%;
+	
+}
+th{
+	background: linear-gradient(
+174deg, gray, transparent);
+padding:5px;
+border-left: 1px solid black;
+border-bottom: 1px solid black;
+
+
+}
+
+td{
+	margin:10px auto;
+	border-left: 1px solid black;
+	padding:5px;
+	text-align: center;
+}
+
+.search > input{
+	width: 100%;
+}
+.inputData{
+	    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 0;
+}
+div > label{
+	display:block;
+	margin:10px 0;
+}
+
+.successfull{
+	margin: 0;
+	background-color: lightgreen;
+}

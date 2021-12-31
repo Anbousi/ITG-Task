@@ -1,0 +1,24 @@
+package com.itg.searchmethods;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.itg.graph.Edge;
+import com.itg.graph.Graph;
+import com.itg.graph.Node;
+
+public class ASearch {
+
+	public static HashMap<String, Object> ASSearch(Graph graph, int start , int goal) {
+		Node n = graph.getNode(start);
+		Edge node =new Edge(start, 0 ,start , n.getWeight() );
+		ArrayList<Edge> frontier = new ArrayList<>();
+		ArrayList<Edge> visited = new ArrayList<>();
+		HashMap<String, Object> ASdata = new HashMap<String, Object>();
+		
+		frontier.add(node);
+		
+		return ASdata;
+	}
+	
+}

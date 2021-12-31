@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+D:\Axsos Bootcamp\Mahmoud Anbousi ITG-Task\ITG\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3449649893.index
+2689663084.index
+1810508211.index
+3746933813.index
+2779409048.index

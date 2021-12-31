@@ -1,0 +1,17 @@
+.main{
+	width: 80%;
+	margin: 0 auto;
+}
+
+
+.input-data td{
+	    vertical-align: top;
+}
+
+.push-btn{
+	width:100%;
+}
+
+.main-table{
+	width:80%;
+}

@@ -1,0 +1,110 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.*"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Graph Search Algorithms</title>
+<link rel="stylesheet" type="text/css" href="/css/home.css">
+
+</head>
+<body>
+
+	<div class="main">
+		<h1>ITG - Graph Search Algorithms task</h1>
+		
+		<form action="UploadCSV" method="POST" enctype="multipart/form-data">
+		<c:choose>
+	         <c:when test = "${ records eq null}">
+					<input type="file" name="file" size="50" /> 
+					<input type="submit" value="Upload File" />
+	         </c:when>
+	         <c:otherwise>
+	            	<p>File uploaded Successfully.</p>
+	            	<p><a href="deleteFile">Upload new file.</a></p>           
+	         </c:otherwise>
+	      </c:choose>
+		</form>
+		
+		<form action="setPath" method="POST">
+			<table>
+				<tr>
+					<label>Start
+					<input id="start" type="number" name="start" value="start" placeholder="${start}" ${ records eq null ?  'disabled="disabled"'  : '' }/>
+					</label>
+				</tr>
+				<tr>
+					<label>Goal
+					<input id="goal" type="number" name="goal" value="goal" placeholder="${goal}" ${ records eq null ?  'disabled="disabled"'  : '' }/>
+					</label> 
+				</tr>
+				<tr>
+					<input type="submit" ${ records eq null ?  'disabled="disabled" value="Set Path - Upload file please"'  : 'value="Set Path"' } />
+				</tr>
+			</table>
+		</form>
+		
+		<form action="searchAll" method="POST">
+			<input type="submit"  ${ start eq null ?  'disabled="disabled" value="Set Path"'  : 'value="Search All"' }/>
+		</form>
+
+		<table>
+			<tr>
+				<th>Algorithm</th>
+				<th># of Evaluated Nodes</th>
+				<th>Evaluated Nodes</th>
+				<th>Path</th>
+				<th>Distance</th>
+				<th>Action</th>
+			</tr>
+			<tr>
+				<td>UCS</td>
+				<td><c:out value="${UCSdata.evaluated}" /></td>
+				<td><c:out value="${UCSdata.visited}" /></td>
+				<td><c:out value="${UCSdata.path}" /></td>
+				<td><c:out value="${UCSdata.minCost}" /></td>
+				<td>
+					<form action="ucs" method="POST"
+						enctype="multipart/form-data">
+						<input type="submit"  ${ start eq null ?  'disabled="disabled" value="Set Path"'  : 'value="Search"' }/>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>GBS</td>
+				<td><c:out value="${GBSdata.evaluated}" /></td>
+				<td><c:out value="${GBSdata.visited}" /></td>
+				<td><c:out value="${GBSdata.path}" /></td>
+				<td><c:out value="${GBSdata.minCost}" /></td>
+				<td>
+					<form action="greedy" method="POST"
+						enctype="multipart/form-data">
+						<input type="submit"  ${ start eq null ?  'disabled="disabled" value="Set Path"'  : 'value="Search"' }/>
+					</form>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>A*</td>
+				<td><c:out value="${ASdata.evaluated}" /></td>
+				<td><c:out value="${ASdata.visited}" /></td>
+				<td><c:out value="${ASdata.path}" /></td>
+				<td><c:out value="${ASdata.minCost}" /></td>
+				<td>
+					<form action="AStar" method="POST"
+						enctype="multipart/form-data">
+						<input type="submit"  ${ start eq null ?  'disabled="disabled" value="Set Path"'  : 'value="Search"' }/>
+					</form>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

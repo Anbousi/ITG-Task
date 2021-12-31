@@ -1,0 +1,39 @@
+package com.itg.graph;
+
+package com.graphsearch.graph;
+
+public class Edge extends Node{
+	private int cost;
+	private int from;
+	public Edge(int value, int cost , int from) {
+		super(value);
+		this.setCost(cost);
+		this.setFrom(from);
+		
+		
+	}
+	public int getCost() {
+		return cost;
+	}
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+	
+	public int getFrom() {
+		return from;
+	}
+	public void setFrom(int from) {
+		this.from = from;
+	}
+	
+	public int getWeight() {
+		System.out.println("Not allowed");
+		return 0;
+	}
+	
+	@Override
+	public String toString() { 
+	    return "( from "+this.getFrom()+" TO " + this.getValue() + "," + this.cost + ")" ;
+	} 
+	
+}

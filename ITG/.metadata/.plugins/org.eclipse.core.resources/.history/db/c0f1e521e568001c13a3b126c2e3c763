@@ -1,0 +1,122 @@
+package com.itg.searchmethods;
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+
+import com.itg.graph.Edge;
+import com.itg.graph.Graph;
+import com.itg.graph.Node;
+
+
+
+public class UCS {
+
+		public static void UCSearch(Graph graph, int start , int goal) {
+			
+			Edge node =new Edge(start, 0 ,start);
+			ArrayList<Edge> frontier = new ArrayList<>();
+			ArrayList<Edge> visited = new ArrayList<>();
+			HashMap<String, Object> UCSdata = new HashMap<String, Object>();
+		
+			frontier.add(node);
+
+			
+			do {
+				if(frontier.size() == 0) {
+					break;
+				}
+				
+				else {
+					
+					node=frontier.remove(0);
+//					 System.out.println(node);
+					if(node.getValue()==goal) {
+						visited.add(node);
+						break;
+					}
+					visited.add(node);
+					ArrayList<Edge> child =addParentCost(sorting(graph.getNodes(node.getValue())),node.getCost());
+					for (Edge edgeCh : child) {
+						if(!containe(visited,edgeCh)) {
+							 if(containe(frontier,edgeCh)) {
+									for (int k = 0; k<frontier.size();k++) {
+										if(frontier.get(k).getValue()==edgeCh.getValue()) {
+											if(frontier.get(k).getCost()>edgeCh.getCost()) {
+												frontier.set(k, edgeCh);
+											}
+										}
+									}
+								}
+							 else {frontier.add(edgeCh);}
+						}
+					}
+				}
+			}while(true);
+    System.out.println(visited);
+    System.out.println(findPath(visited));
+    UCSdata.put("visited", visited);
+    UCSdata.put("path", findPath(visited));
+    
+   
+		}
+		public static ArrayList<Edge> addParentCost(ArrayList<Edge> q,Integer PCost) {
+			for (Edge edge : q) {
+				edge.setCost(edge.getCost()+PCost);
+			}
+			return q;
+			
+		}
+		
+		
+		public static ArrayList<Node> sorting(ArrayList<Edge> q) {
+//			Sorting ArrayList depends on lower cost node.
+			
+			ArrayList<Node> sortedArray = new ArrayList<>();
+
+			while(q.size() != 0) {
+				int index = 0;
+				Edge min = q.get(0);
+				int minIndex = 0;
+				for (Edge e : q) {
+					
+					if(e.getCost()<min.getCost()) {
+						min=e;
+						minIndex = index;
+						
+					}
+					index++;	
+				}
+				sortedArray.add(min);
+				q.remove(minIndex);
+
+				}
+			return sortedArray;
+		}
+		
+		public static boolean containe(ArrayList<Edge> temp,Edge edge) {
+			for (Edge edTemp : temp) {
+				if(edTemp.getValue()==edge.getValue()) {
+					return true;
+				}
+			}
+			return false;
+			
+		}
+		
+		public static ArrayList<Integer> findPath(ArrayList<Edge> nodes){
+			ArrayList<Integer> path = new ArrayList<>();
+			Integer temp=nodes.get(nodes.size()-1).getValue();
+				for (int i=nodes.size()-1;i>=0;i--) {
+					if(nodes.get(i).getValue()==temp) {
+						path.add(temp);
+						temp=nodes.get(i).getFrom();
+					}
+				}
+				Collections.reverse(path);
+			return path;
+			
+		}
+		
+}
